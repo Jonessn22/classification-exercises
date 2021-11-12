@@ -1,4 +1,4 @@
-Functions
+# Functions
 
 
 def clean_data(df):
@@ -48,4 +48,3 @@ def prep_titanic_data(df):
     train, validate, test = split_data(df)
     return train, validate, test
 
-    
