@@ -29,7 +29,7 @@ EDA
     - graphical representations
 
 ## 05  Model Evaluation
-
+How we evaluate our classification model's performance
 
 ## 06  Modeling
 ####    06-01   Decision Tree
