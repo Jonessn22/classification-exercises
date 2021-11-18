@@ -36,3 +36,33 @@ How we evaluate our classification model's performance
 ####    06-02   Random Forest
 ####    06-03   KNN
 ####    06-04   Logistic Regression
+
+## 99 Imports
+******ignore warnings
+import warnings
+warnings.filterwarnings("ignore")
+
+import numpy as np
+import pandas as pd
+from scipy import stats
+import os
+
+******files/data
+from pydataset import data
+import env
+import aquire
+import prepare
+
+******visualizations
+import matplotlib.pyplot as plt
+%matplotlib inline
+import seaborn as sns
+
+******sklearn
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.tree import export_graphviz
+from sklearn.metrics import classification_report
+from sklearn.metrics import confusion_matrix
+
+np.random.seed(123)
