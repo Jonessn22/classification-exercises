@@ -19,14 +19,16 @@ Preparing and cleaning our imported data
 <b>Pivot</b> required when one column contains multiple variables
 
 ## 04  Exploratory Analysis
-EDA
+EDA | In this step we determine which features to feed into our model
 - initial investigations
 - discover patterns
 - spot anomolies
 - formulate and test hypothesis
 - check assumptions
     - summary statistics
-    - graphical representations
+    - graphical representations<br>
+<b>X_train:</b>Feature variable columns, drop target variable column<br>
+<b>y_train:</b>Series with our target variable column
 
 ## 05  Model Evaluation
 How we evaluate our classification model's performance
@@ -50,7 +52,7 @@ import os<br><br>
 ******files/data<br>
 from pydataset import data<br>
 import env<br>
-import aquire<br>
+import acquire<br>
 import prepare<br><br>
 
 ******visualizations<br>
