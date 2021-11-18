@@ -1,7 +1,23 @@
-# Functions
+import pandas as pd
+import numpy as np
+from scipy import stats
+
+# visualization
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# import splitting and imputing functions
+from sklearn.model_selection import train_test_split
+from sklearn.impute import SimpleImputer
+
+# confusion matrix for model evaluation
+from sklearn.metrics import confusion_matrix
 
 
-def clean_data(df):
+
+ ###################### Prepare Titanic Data ######################   
+  
+def clean_data(df): ####################### FEEDER FUNCTION 
     '''
     This function will drop any duplicate observations, 
     drop ['deck', 'embarked', 'class', 'age'], fill missing embark_town with 'Southampton'
@@ -14,7 +30,7 @@ def clean_data(df):
     df = pd.concat([df, dummy_df], axis=1)
     return df
 
-def split_data(df):
+def split_data(df): ####################### FEEDER FUNCTION 
     '''
     take in a DataFrame and return train, validate, and test DataFrames; stratify on survived.
     return train, validate, test DataFrames.
@@ -24,6 +40,17 @@ def split_data(df):
                                        test_size=.3, 
                                        random_state=123, 
                                        stratify=train_validate.survived)
+    return train, validate, test
+
+def prep_titanic_data(df):
+    '''
+    This function takes in a df and will drop any duplicate observations, 
+    drop ['deck', 'embarked', 'class', 'age'], fill missing embark_town with 'Southampton'
+    create dummy vars from sex and embark_town, and perform a train, validate, test split. 
+    Returns train, validate, and test DataFrames
+    '''
+    df = clean_data(df)
+    train, validate, test = split_data(df)
     return train, validate, test
 
 def impute_mode(train, validate, test):
@@ -37,16 +64,22 @@ def impute_mode(train, validate, test):
     test[['embark_town']] = imputer.transform(test[['embark_town']])
     return train, validate, test
 
-def prep_titanic_data(df):
-    '''
-    This function takes in a df and will drop any duplicate observations, 
-    drop ['deck', 'embarked', 'class', 'age'], fill missing embark_town with 'Southampton'
-    create dummy vars from sex and embark_town, and perform a train, validate, test split. 
-    Returns train, validate, and test DataFrames
-    '''
-    df = clean_data(df)
-    train, validate, test = split_data(df)
-    return train, validate, test
+
+
+
+ ###################### Prepare Iris Data #########################
+
+
+
+  ###################### Prepare Titanic Data ######################
+
+
+
+
+
+
+
+
 
 def prep_telco_data(df):
     # Drop duplicate columns
