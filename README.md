@@ -38,31 +38,31 @@ How we evaluate our classification model's performance
 ####    06-04   Logistic Regression
 
 ## 99 Imports
-******ignore warnings
-import warnings
-warnings.filterwarnings("ignore")
+******ignore warnings<br>
+import warnings<br>
+warnings.filterwarnings("ignore")<br><br>
 
-import numpy as np
-import pandas as pd
-from scipy import stats
-import os
+import numpy as np<br>
+import pandas as pd<br>
+from scipy import stats<br>
+import os<br><br>
 
-******files/data
-from pydataset import data
-import env
-import aquire
-import prepare
+******files/data<br>
+from pydataset import data<br>
+import env<br>
+import aquire<br>
+import prepare<br><br>
 
-******visualizations
-import matplotlib.pyplot as plt
-%matplotlib inline
-import seaborn as sns
+******visualizations<br>
+import matplotlib.pyplot as plt<br>
+%matplotlib inline<br>
+import seaborn as sns<br><br>
 
-******sklearn
-from sklearn.model_selection import train_test_split
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.tree import export_graphviz
-from sklearn.metrics import classification_report
-from sklearn.metrics import confusion_matrix
+******sklearn<br>
+from sklearn.model_selection import train_test_split<br>
+from sklearn.tree import DecisionTreeClassifier<br>
+from sklearn.tree import export_graphviz<br>
+from sklearn.metrics import classification_report<br>
+from sklearn.metrics import confusion_matrix<br><br>
 
 np.random.seed(123)
