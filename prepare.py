@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from scipy import stats
+import math
 
 # visualization
 import matplotlib.pyplot as plt
@@ -12,6 +12,11 @@ from sklearn.impute import SimpleImputer
 
 # confusion matrix for model evaluation
 from sklearn.metrics import confusion_matrix
+
+
+# turn off pink boxes for demo
+import warnings
+warnings.filterwarnings("ignore")
 
 
 
@@ -33,65 +38,85 @@ def train_validate_test_split(df, target, seed=123):
                                        random_state=seed,
                                        stratify=train_validate[target])
     return train, validate, test
-    
+
 
  ###################### Prepare Titanic Data ######################   
   
 def clean_data(df): ####################### FEEDER FUNCTION 
     '''
-    This function will drop any duplicate observations, 
-    drop ['deck', 'embarked', 'class', 'age'], fill missing embark_town with 'Southampton'
-    and create dummy vars from sex and embark_town. 
+    This function will clean the Titanic data prior to splitting
     '''
+    # drop duplicate values
     df = df.drop_duplicates()
-    df = df.drop(columns=['deck', 'embarked', 'class', 'age'])
+
+    # drop columns already represented by other values
+    df = df.drop(columns=['deck', 'embarked', 'class'])
+
+    # fills small number of null values for embark_town with the mode
     df['embark_town'] = df.embark_town.fillna(value='Southampton')
-    dummy_df = pd.get_dummies(df[['sex', 'embark_town']], drop_first=True)
+
+    # encodes dummies for string columns to be usable for the model
+    dummy_df = pd.get_dummies(df[['sex', 'embark_town']], dummy_na = False, drop_first=True, True)
     df = pd.concat([df, dummy_df], axis=1)
+
     return df
 
 def split_data(df): ####################### FEEDER FUNCTION 
     '''
-    take in a DataFrame and return train, validate, and test DataFrames; stratify on survived.
-    return train, validate, test DataFrames.
+    Takes in a dataframe and return train, validate, test subset dataframes
     '''
+    # create the test set
     train_validate, test = train_test_split(df, test_size=.2, random_state=123, stratify=df.survived)
+    
+    # create the final train and validate set
     train, validate = train_test_split(train_validate, 
                                        test_size=.3, 
                                        random_state=123, 
                                        stratify=train_validate.survived)
+    
     return train, validate, test
+
+
+def impute_mean_age(train, validate, test): ### FEEDER FUNCTION 
+    '''
+    This function imputes the mean of the age column for
+    observations with missing values.
+    Returns transformed train, validate, and test df.
+    '''
+    # create the imputer object with mean strategy
+    imputer = SimpleImputer(strategy = 'mean')
+    
+    # fit on and transform age column in train
+    train['age'] = imputer.fit_transform(train[['age']])
+    
+    # transform age column in validate
+    validate['age'] = imputer.transform(validate[['age']])
+    
+    # transform age column in test
+    test['age'] = imputer.transform(test[['age']])
+    
+    return train, validate, test
+
 
 def prep_titanic_data(df):
     '''
-    This function takes in a df and will drop any duplicate observations, 
-    drop ['deck', 'embarked', 'class', 'age'], fill missing embark_town with 'Southampton'
-    create dummy vars from sex and embark_town, and perform a train, validate, test split. 
-    Returns train, validate, and test DataFrames
+    Combines the clean_titanic_data, split_titanic_data, and impute_mean_age functions.
     '''
-    df = clean_data(df)
-    train, validate, test = split_data(df)
+    df = clean_titanic_data(df)
+
+    train, validate, test = split_titanic_data(df)
+    
+    train, validate, test = impute_mean_age(train, validate, test)
+
     return train, validate, test
-
-def impute_mode(train, validate, test):
-    '''
-    take in train, validate, and test DataFrames, impute mode for embark_town,
-    and return train, validate, and test DataFrames
-    '''
-    imputer = SimpleImputer(missing_values = None, strategy='most_frequent')
-    train[['embark_town']] = imputer.fit_transform(train[['embark_town']])
-    validate[['embark_town']] = imputer.transform(validate[['embark_town']])
-    test[['embark_town']] = imputer.transform(test[['embark_town']])
-    return train, validate, test
-
-
-###################### Prepare Iris Data #########################
-
 
 
 ###################### Prepare Telco Data ######################
 
 def prep_telco_data(df):
+    '''
+    This function preps Telco data prior to split
+    '''
     # Drop duplicate columns
     df.drop(columns=['payment_type_id', 'internet_service_type_id', 'contract_type_id', 'customer_id'], inplace=True)
        
@@ -131,7 +156,6 @@ def prep_telco_data(df):
     
     return train, validate, test
 
-
 def split_telco_data(df):
     '''
     This function performs split on telco data, stratify churn.
@@ -140,7 +164,7 @@ def split_telco_data(df):
     train_validate, test = train_test_split(df, test_size=.2, 
                                         random_state=123, 
                                         stratify=df.churn)
-    train, validate = train_test_split(train_validate, test_size=.2, 
+    train, validate = train_test_split(train_validate, test_size=.3, 
                                    random_state=123, 
                                    stratify=train_validate.churn)
     return train, validate, test
