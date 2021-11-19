@@ -27,8 +27,8 @@ EDA | In this step we determine which features to feed into our model
 - check assumptions
     - summary statistics
     - graphical representations<br>
-<b>X_train:</b>Feature variable columns, drop target variable column<br>
-<b>y_train:</b>Series with our target variable column
+<p><b>X_train: </b>Feature variable columns, drop target variable column<br>
+<b>y_train: </b>Series with our target variable column
 
 ## 05  Model Evaluation
 How we evaluate our classification model's performance
