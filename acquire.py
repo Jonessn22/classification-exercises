@@ -12,8 +12,11 @@ def get_connection(db, user=user, host=host, password=password):
     '''
     return f'mysql+pymysql://{user}:{password}@{host}/{db}'
     
- ###################### Acquire Titanic Data ######################   
-    
+
+
+###################### Acquire Titanic Data ######################   
+
+
 def new_titanic_data(): ####################### FEEDER FUNCTION 
     '''
     This function reads the titanic data from the Codeup db into a df,
@@ -48,6 +51,7 @@ def get_titanic_data():
         df.to_csv('titanic_df.csv')
         
     return df
+
 
 ###################### Acquire Iris Data ######################
 
@@ -92,6 +96,8 @@ def get_iris_data():
         df.to_csv('iris_df.csv')
         
     return df
+
+
 
 ###################### Acquire Telco Data ######################
 
