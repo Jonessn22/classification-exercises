@@ -56,7 +56,7 @@ def clean_data(df): ####################### FEEDER FUNCTION
     df['embark_town'] = df.embark_town.fillna(value='Southampton')
 
     # encodes dummies for string columns to be usable for the model
-    dummy_df = pd.get_dummies(df[['sex', 'embark_town']], dummy_na = False, drop_first=True, True)
+    dummy_df = pd.get_dummies(df[['sex', 'embark_town']], dummy_na = False, drop_first=True)
     df = pd.concat([df, dummy_df], axis=1)
 
     return df

@@ -11,10 +11,10 @@ Preparing and cleaning our imported data
 - prepare.py file
 
 ## 03  Tidy Data
-- data should be tabular (made up of rows and columns)
-- there should only be one value per cell
-- each variable should be one column
-- each observation shpould be one row
+>- data should be tabular (made up of rows and columns)
+>- there should only be one value per cell
+>- each variable should be one column
+>- each observation shpould be one row
 <b>Melt</b> required when one variable is spread across multiple columns
 <b>Pivot</b> required when one column contains multiple variables
 
@@ -30,14 +30,22 @@ EDA | In this step we determine which features to feed into our model
 <p><b>X_train: </b>Feature variable columns, drop target variable column<br>
 <b>y_train: </b>Series with our target variable column
 
-## 05  Model Evaluation
-How we evaluate our classification model's performance
-
-## 06  Modeling
+## 05  Modeling
 ####    06-01   Decision Tree
 ####    06-02   Random Forest
 ####    06-03   KNN
 ####    06-04   Logistic Regression
+
+
+## 06  Model Evaluation
+How we evaluate our classification model's performance
+#### 06-i. Baseline Accuracy
+#### 06-ii. Create Object
+#### 06-iii. Fit the Model
+>Visualize (Decision Tree)
+>Feature Importance (Random Forest)
+#### 06-iv. Use the Model (Make Predictions)
+#### 06-v. Classification Report
 
 ## 99 Imports
 ******ignore warnings<br>
